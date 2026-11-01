@@ -1,0 +1,1171 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>The Berserker’s Manual</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Grenze+Gotisch:wght@600;700;800;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: a manga page. Heavy ink-framed panels on cool paper, halftone dots, gothic display type for names, condensed caps for numbers and labels. */
+:root{
+  --bg:#E7E9EC; --panel:#F4F5F7; --fg:#14161A; --muted:#4B5662;
+  --edge:#14161A; --offset:#14161A; --soft:#C5CBD2;
+  --accent:#B4452C; --steel:#3E5266; --stone:#7C8691; --on:#FFFFFF;
+  --dot:rgba(20,22,26,.17);
+  --display:"Grenze Gotisch","Pirata One",Georgia,serif;
+  --body:"Source Serif 4",Georgia,"Times New Roman",serif;
+  --ui:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1114; --panel:#171A1F; --fg:#E6E8EB; --muted:#9BA5B0;
+    --edge:#B9C0C8; --offset:#2A2F36; --soft:#2A2F36;
+    --accent:#E6785D; --steel:#86A3BF; --stone:#6E7985; --on:#0F1114;
+    --dot:rgba(230,232,235,.13);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1114; --panel:#171A1F; --fg:#E6E8EB; --muted:#9BA5B0;
+  --edge:#B9C0C8; --offset:#2A2F36; --soft:#2A2F36;
+  --accent:#E6785D; --steel:#86A3BF; --stone:#6E7985; --on:#0F1114;
+  --dot:rgba(230,232,235,.13);
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--fg);font:400 1.0625rem/1.65 var(--body);-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+h1,h2,h3,h4,h5,p,ul,ol,dl,dd,figure{margin:0}
+ul,ol{padding:0}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.wrap{width:100%;max-width:1120px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.label{font:600 .8rem/1.1 var(--ui);letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.panel{background:var(--panel);border:2px solid var(--edge);box-shadow:5px 5px 0 var(--offset);padding:22px;min-width:0}
+
+/* Top bar */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:2px solid var(--edge)}
+.bar .wrap{display:flex;align-items:center;gap:20px;min-height:54px}
+.brand{font:800 1.4rem/1 var(--display);text-decoration:none;white-space:nowrap}
+.nav{display:flex;gap:2px;overflow-x:auto;min-width:0;margin-left:auto;scrollbar-width:none}
+.nav::-webkit-scrollbar{display:none}
+.nav a{font:600 .92rem/1 var(--ui);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:19px 10px 16px;border-bottom:3px solid transparent;white-space:nowrap}
+.nav a:hover{border-bottom-color:var(--soft)}
+.nav a[aria-current="true"]{border-bottom-color:var(--accent)}
+@media (max-width:640px){.brand{display:none}.nav{margin-left:0}}
+
+/* Hero */
+.hero{position:relative;overflow:clip;padding-block:clamp(36px,7vw,84px) clamp(44px,6vw,76px)}
+.hero::before{content:"";position:absolute;inset:0 0 auto auto;width:min(62%,680px);height:100%;pointer-events:none;
+  background:radial-gradient(circle,var(--dot) 1.3px,transparent 1.8px) 0 0/8px 8px;
+  -webkit-mask-image:linear-gradient(to left,#000 0%,transparent 92%);mask-image:linear-gradient(to left,#000 0%,transparent 92%)}
+.hero .wrap{position:relative}
+h1{font:900 clamp(3.1rem,11vw,7.25rem)/.92 var(--display);letter-spacing:-.01em;text-wrap:balance;margin-top:16px;max-width:11ch}
+.lede{max-width:42ch;font-size:1.25rem;margin-top:22px}
+.split{margin-top:46px;max-width:760px}
+.split-bar{display:grid;grid-template-columns:4fr 4fr 2fr;gap:6px;margin-top:12px}
+.split-bar a{display:grid;gap:6px;min-width:0;text-decoration:none}
+.split-bar i{display:block;height:18px;border:2px solid var(--edge);background:var(--c)}
+.split-bar b{font:700 2.2rem/1 var(--ui);font-variant-numeric:tabular-nums}
+.split-bar span{font:600 .8rem/1.1 var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.split a:hover b{color:var(--accent)}
+.split-note{margin-top:16px;max-width:58ch;color:var(--muted)}
+@media (max-width:480px){.split-bar span{letter-spacing:.05em;font-size:.74rem}}
+
+.mosaic{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:20px;margin-top:60px}
+.tile{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;gap:14px;padding:22px;min-width:0;
+  background:var(--panel);border:2px solid var(--edge);box-shadow:5px 5px 0 var(--offset);text-decoration:none;transition:transform .12s,box-shadow .12s}
+.tile:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 var(--offset)}
+.tile>*{position:relative}
+.tile h3{font:800 clamp(2rem,4.4vw,3rem)/1 var(--display)}
+.tile p{color:var(--muted);max-width:34ch}
+.tile .go{font:700 .85rem/1 var(--ui);letter-spacing:.16em;text-transform:uppercase}
+.tile.dots::after{content:"";position:absolute;inset:auto 0 0 auto;width:75%;height:70%;pointer-events:none;
+  background:radial-gradient(circle,var(--dot) 1.4px,transparent 2px) 0 0/9px 9px;
+  -webkit-mask-image:linear-gradient(to top left,#000,transparent 85%);mask-image:linear-gradient(to top left,#000,transparent 85%)}
+.t-mind{grid-column:1/6;grid-row:1/3;min-height:300px}
+.t-train{grid-column:6/13}
+.t-nutr{grid-column:6/13}
+.t-rec{grid-column:1/7}
+.t-supp{grid-column:7/13}
+@media (max-width:760px){.mosaic{grid-template-columns:1fr;gap:16px}.tile{grid-column:auto;grid-row:auto;min-height:0}}
+
+/* Chapters */
+.chapter{border-top:3px solid var(--edge);padding-block:clamp(48px,8vw,96px);scroll-margin-top:calc(58px + env(safe-area-inset-top,0px))}
+.chapter-head{display:grid;grid-template-columns:minmax(0,1fr);gap:18px 56px;align-items:end}
+@media (min-width:860px){.chapter-head{grid-template-columns:minmax(0,1fr) minmax(0,.9fr)}}
+h2.ch{font:900 clamp(3.2rem,9vw,6.5rem)/.9 var(--display);letter-spacing:-.01em}
+.chapter-head p{font-size:1.15rem;max-width:46ch}
+.topics{display:flex;flex-wrap:wrap;gap:8px;margin-top:30px}
+.topics a{font:600 .85rem/1 var(--ui);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;border:2px solid var(--edge);padding:10px 12px}
+.topics a:hover{background:var(--fg);color:var(--bg)}
+.entries{margin-top:44px}
+
+.entry{display:grid;grid-template-columns:minmax(0,1fr);gap:14px 44px;padding-block:34px;border-top:2px solid var(--edge);scroll-margin-top:calc(58px + env(safe-area-inset-top,0px))}
+@media (min-width:860px){.entry{grid-template-columns:230px minmax(0,1fr)}}
+.entry>header{display:grid;gap:8px;align-content:start}
+.entry h3{font:800 1.8rem/1.05 var(--display);text-wrap:balance}
+.body{min-width:0;display:grid;gap:22px}
+.prose{display:grid;gap:1em;max-width:66ch}
+.sub{font:800 1.45rem/1.1 var(--display);margin-top:6px}
+
+.pull{max-width:30ch;padding:20px 22px;border:2px solid var(--edge);
+  font:700 clamp(1.45rem,3.2vw,2.05rem)/1.18 var(--display);text-wrap:balance;
+  background:repeating-linear-gradient(135deg,var(--dot) 0 1px,transparent 1px 7px),var(--panel)}
+.note{max-width:66ch;display:grid;gap:8px;padding:18px 20px;border:2px dashed var(--accent)}
+.note .label{color:var(--fg)}
+
+.defs{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.def{display:grid;gap:8px;align-content:start;padding:18px;border:2px solid var(--edge);background:var(--panel);min-width:0}
+.def h4{font:800 1.7rem/1 var(--display)}
+.def .eg{font-size:.95rem;color:var(--muted)}
+
+.chips{display:flex;flex-wrap:wrap;gap:6px;list-style:none}
+.chips li{border:1.5px solid var(--edge);padding:5px 9px;font:600 .88rem/1.1 var(--ui);letter-spacing:.06em;text-transform:uppercase}
+
+.macros{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,250px),1fr))}
+.macro{display:grid;gap:12px;align-content:start;padding:20px;border:2px solid var(--edge);background:var(--panel);min-width:0}
+.macro h4{font:800 1.7rem/1 var(--display)}
+.fig{font:700 clamp(2.3rem,5.6vw,3.1rem)/1 var(--ui);color:var(--accent);font-variant-numeric:tabular-nums}
+.fig small{display:block;margin-top:6px;font:600 .8rem/1.2 var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.macro p{font-size:.98rem}
+
+/* Calculator */
+.calc{display:grid;gap:26px 36px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:820px){.calc{grid-template-columns:minmax(0,260px) minmax(0,1fr)}}
+.field{display:grid;gap:8px}
+.field+.field{margin-top:20px}
+.num{width:100%;max-width:200px;font:700 2rem/1 var(--ui);padding:10px 12px;color:var(--fg);background:var(--bg);border:2px solid var(--edge);border-radius:0}
+.seg{display:flex}
+.seg button,.pill{cursor:pointer;background:var(--panel);border:2px solid var(--edge);border-radius:0;padding:10px 12px;font:700 .95rem/1 var(--ui);letter-spacing:.12em;text-transform:uppercase}
+.seg button{flex:1 1 0;margin-left:-2px}
+.seg button:first-child{margin-left:0}
+.seg button[aria-pressed="true"],.pill[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.res{display:grid}
+.res>div{display:grid;gap:4px;padding:14px 0;border-top:2px solid var(--edge)}
+.res>div:first-child{border-top:0;padding-top:0}
+.res dt{font:600 .8rem/1.1 var(--ui);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.res .v{font:700 clamp(1.7rem,4vw,2.3rem)/1.05 var(--ui);font-variant-numeric:tabular-nums}
+.res .v em{font-style:normal;color:var(--accent)}
+.res .t{font-size:.95rem;color:var(--muted);max-width:56ch}
+.hint{color:var(--muted)}
+
+/* Chart */
+.chart{display:grid;gap:14px;max-width:560px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.chart .gl{stroke:var(--soft);stroke-width:1}
+.chart .ax{stroke:var(--edge);stroke-width:2}
+.chart .ln{fill:none;stroke:var(--accent);stroke-width:3;stroke-linejoin:round}
+.chart .ar{fill:var(--accent);opacity:.14}
+.chart .tk{font:600 13px var(--ui);fill:var(--muted)}
+.chart .mk{fill:var(--accent);stroke:var(--bg);stroke-width:2}
+.chart .mv{stroke:var(--accent);stroke-width:1.5;stroke-dasharray:4 4}
+.chart .ml{font:700 16px var(--ui);fill:var(--fg)}
+.slide{display:grid;gap:6px}
+.slide input{width:100%;accent-color:var(--accent);margin:0}
+.readout{font:700 1.5rem/1 var(--ui);font-variant-numeric:tabular-nums}
+
+/* Bulk and cut */
+.pair{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.rules{display:grid;gap:8px;padding-left:1.1em;font-size:.98rem}
+.rules li::marker{color:var(--accent)}
+
+/* Recovery */
+.tips{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+
+/* Supplements */
+.supps{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.supp{display:grid;gap:10px;align-content:start;padding:20px;border:2px solid var(--edge);background:var(--panel);min-width:0}
+.supp h4{font:800 1.7rem/1 var(--display)}
+.supp .fig{font-size:clamp(1.8rem,4vw,2.3rem)}
+.supp p,.supp li{font-size:.98rem}
+.risks{display:flex;flex-wrap:wrap;gap:8px;list-style:none}
+.risks li{padding:8px 12px;border:2px solid var(--edge);font:700 .95rem/1 var(--ui);letter-spacing:.1em;text-transform:uppercase}
+.ped h3{font:900 clamp(2.6rem,7vw,4.4rem)/.95 var(--display)}
+.ped{display:grid;gap:18px}
+
+/* Training */
+.tabs{display:flex;flex-wrap:wrap;gap:0}
+.tabs [role="tab"]{cursor:pointer;background:var(--panel);border:2px solid var(--edge);border-radius:0;padding:14px 18px;margin:0 -2px -2px 0;font:700 1rem/1 var(--ui);letter-spacing:.12em;text-transform:uppercase}
+.tabs [role="tab"][aria-selected="true"]{background:var(--fg);color:var(--bg)}
+.tabpanel{display:grid;gap:26px;margin-top:24px}
+.week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
+.week.five{grid-template-columns:repeat(5,minmax(0,1fr))}
+.day{display:grid;gap:3px;justify-items:center;padding:9px 2px;border:2px solid var(--edge);text-align:center;min-width:0;font:700 clamp(.7rem,2.5vw,.92rem)/1 var(--ui);letter-spacing:.06em;text-transform:uppercase}
+.day small{font:600 .72rem/1 var(--ui);letter-spacing:.1em;opacity:.8}
+.k-push{background:var(--steel);color:var(--on);border-color:var(--steel)}
+.k-pull{background:var(--accent);color:var(--on);border-color:var(--accent)}
+.k-legs{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+.k-rest{border-style:dashed;border-color:var(--stone);color:var(--muted);background:transparent}
+.arrow{display:none}
+.cal{display:grid;grid-template-columns:2.2rem repeat(7,minmax(0,1fr));gap:4px;align-items:stretch}
+.cal .h{font:600 .72rem/1 var(--ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:center;padding-bottom:2px}
+.cal .w{display:grid;place-items:center;font:700 .85rem/1 var(--ui);color:var(--muted)}
+.cal .w.hit{color:var(--accent);outline:2px solid var(--accent)}
+.cal .day{padding:8px 0;font-size:clamp(.62rem,2.2vw,.8rem);letter-spacing:.02em}
+.cal .day.hl{box-shadow:0 0 0 0 transparent}
+.calnote{font-size:.95rem;color:var(--muted);max-width:62ch}
+.pills{display:flex;flex-wrap:wrap;gap:8px}
+.exgrid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(min(100%,290px),1fr))}
+.ex{display:grid;gap:10px;align-content:start;padding:16px 16px 18px;border:2px solid var(--edge);background:var(--bg);min-width:0}
+.ex .tag{font:600 .78rem/1.2 var(--ui);letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.ex h4{font:700 1.32rem/1.08 var(--ui);letter-spacing:.03em;text-transform:uppercase;overflow-wrap:anywhere}
+.rx{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.rx b{font:700 2.05rem/1 var(--ui);color:var(--accent);font-variant-numeric:tabular-nums}
+.rx span{font:600 .8rem/1.2 var(--ui);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ex .warm{font-size:.9rem;color:var(--muted)}
+.ex ul{display:grid;gap:5px;padding-left:1.1em;font-size:.96rem}
+.ex li::marker{color:var(--accent)}
+.ex.soon{border-style:dashed;place-content:center;text-align:center;color:var(--muted);min-height:140px}
+.expl{font-size:.95rem;color:var(--muted);max-width:62ch}
+
+.facts{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr))}
+.fact{display:grid;gap:6px;align-content:start;padding:18px;border:2px solid var(--edge);background:var(--panel);min-width:0}
+.fact .fig{font-size:clamp(2rem,4.6vw,2.6rem)}
+.fact h4{font:700 1.1rem/1.1 var(--ui);letter-spacing:.1em;text-transform:uppercase}
+.fact p{font-size:.95rem;color:var(--muted)}
+
+.check{display:grid;gap:18px 30px;grid-template-columns:minmax(0,1fr)}
+@media (min-width:820px){.check{grid-template-columns:minmax(0,300px) minmax(0,1fr);align-items:center}}
+.verdict{display:grid;gap:6px}
+.verdict .v{font:700 clamp(1.7rem,4vw,2.3rem)/1.05 var(--ui);text-transform:uppercase}
+.verdict .v.go{color:var(--accent)}
+.verdict p{color:var(--muted)}
+
+.muscles{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.muscle{display:grid;gap:14px;align-content:start;padding:20px;border:2px solid var(--edge);background:var(--panel);min-width:0}
+.muscle h4{font:800 1.8rem/1 var(--display)}
+.muscle section{display:grid;gap:4px}
+.muscle section p{font-size:.97rem}
+
+footer{border-top:3px solid var(--edge);padding-block:36px 56px}
+footer .wrap{display:grid;gap:10px}
+footer p{max-width:64ch;color:var(--muted);font-size:.95rem}
+footer .brand{display:block}
+
+@media (max-width:560px){
+  .panel{padding:14px}
+  .entry{padding-block:28px}
+  .ex,.muscle,.supp,.macro{padding:14px}
+  .day small{font-size:.62rem}
+}
+</style>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top">The Berserker’s Manual</a>
+    <nav class="nav" aria-label="Chapters">
+      <a href="#mind">Mind</a>
+      <a href="#nutrition">Nutrition</a>
+      <a href="#recovery">Recovery</a>
+      <a href="#supplements">Supplements</a>
+      <a href="#training">Training</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="title">
+    <div class="wrap">
+      <p class="label">Training · Nutrition · Recovery · Mindset</p>
+      <h1 id="title">The Berserker’s Manual</h1>
+      <p class="lede">What I’ve learned about lifting, eating, recovering and thinking, written down for anyone who is getting started.</p>
+
+      <div class="split">
+        <h2 class="label">How I weigh the work</h2>
+        <div class="split-bar">
+          <a href="#training" style="--c:var(--steel)"><i></i><b>40%</b><span>Training</span></a>
+          <a href="#nutrition" style="--c:var(--accent)"><i></i><b>40%</b><span>Diet</span></a>
+          <a href="#recovery" style="--c:var(--stone)"><i></i><b>20%</b><span>Recovery</span></a>
+        </div>
+        <p class="split-note">A lot of people overlook diet. You can train hard every day, but if your nutrition doesn’t support your goals, progress will be slow or nonexistent.</p>
+      </div>
+
+      <div class="mosaic">
+        <a class="tile dots t-mind" href="#mind">
+          <h3>Mind</h3>
+          <p>Stoicism, discipline, humility, and why the gym changed how I think.</p>
+          <span class="go">Read the chapter →</span>
+        </a>
+        <a class="tile dots t-train" href="#training">
+          <h3>Training</h3>
+          <p>Push, pull, legs two ways, plus progressive overload and how to break a plateau.</p>
+          <span class="go">Read the chapter →</span>
+        </a>
+        <a class="tile t-nutr" href="#nutrition">
+          <h3>Nutrition</h3>
+          <p>Protein, carbs and fats, bulking and cutting, and cardio.</p>
+          <span class="go">Read the chapter →</span>
+        </a>
+        <a class="tile t-rec" href="#recovery">
+          <h3>Recovery</h3>
+          <p>Rest days, sleep, and knowing when to back off.</p>
+          <span class="go">Read the chapter →</span>
+        </a>
+        <a class="tile t-supp" href="#supplements">
+          <h3>Supplements</h3>
+          <p>What I take, what I skip, and why I don’t touch PEDs.</p>
+          <span class="go">Read the chapter →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MIND ============ -->
+  <section class="chapter" id="mind" aria-labelledby="h-mind">
+    <div class="wrap">
+      <div class="chapter-head">
+        <h2 class="ch" id="h-mind">Mind</h2>
+        <p>True strength shows in how you carry yourself and treat others. This chapter is about the thinking underneath the training.</p>
+      </div>
+      <nav class="topics" aria-label="Topics in Mind">
+        <a href="#why-i-lift">Why I lift</a>
+        <a href="#stoicism">Stoicism</a>
+        <a href="#discipline">Discipline and consistency</a>
+        <a href="#humility">Ego and humility</a>
+        <a href="#improvement">Continuous improvement</a>
+      </nav>
+
+      <div class="entries">
+        <article class="entry" id="why-i-lift">
+          <header><span class="label">Introduction</span><h3>Why I lift</h3></header>
+          <div class="body">
+            <div class="prose">
+              <p>My fitness journey began long before I thought about mental health or personal philosophy. I started with a mindset rooted in self-hatred, thinking that building muscle would somehow fix those feelings.</p>
+              <p>The real benefit the gym has brought me goes beyond physical change. It has transformed the way I think and perceive the world. The constant progress, both physical and mental, and the peace of mind it gives me have been the real game changers.</p>
+              <p>As I continued, I realized that letting go of shame and the fear of what others think opens up a whole new world. I started to find joy in even the smallest things. Something as simple as a smile can brighten someone’s day in ways you might never imagine. You never know what someone is going through, so don’t be too quick to judge.</p>
+              <p>None of this happens overnight. It takes months, even years, of learning, growing and refining who you really are. The journey never ends, and the more you commit to it, the more you evolve.</p>
+            </div>
+            <p class="pull">True strength lies not just in physical progress, but in how we carry ourselves and treat others along the way.</p>
+          </div>
+        </article>
+
+        <article class="entry" id="stoicism">
+          <header><span class="label">Philosophy</span><h3>Stoicism</h3></header>
+          <div class="body">
+            <div class="prose">
+              <p>I first got into philosophy because of Berserk. I read it during a difficult period in my life, and the story combined with my own experiences triggered a desire to grow.</p>
+              <p>For me, Stoicism is the art of letting go of everything beyond your control. Some people link it with depression or a somber outlook, but that is only one way to see it. It is about balance: not being affected by what you cannot control, while still letting yourself feel your emotions. Without that balance there is a risk of becoming unempathetic and detached from your own feelings.</p>
+              <p>The biggest benefit for me is control over my emotions. It teaches you to stay unaffected by external events, so you can make more rational decisions and act with clarity whatever the circumstances.</p>
+              <p>Stoicism also says we cannot control fate. I’m still coming to terms with that. I believe we can shape our lives and make choices, and I’m starting to understand the Stoic view: accept what you cannot control and make the best possible outcome from it.</p>
+            </div>
+            <p class="pull">Nothing external to you can truly harm you. Externals cannot harm your moral character or diminish your wellbeing. Only your thoughts can bring about that harm, so don’t allow it.</p>
+            <div class="prose">
+              <p>Our judgements of others do not harm them, they only harm us. Pay attention to your judgement of external events, challenge them, release them.</p>
+            </div>
+            <div class="note">
+              <span class="label">You don’t need a philosophy</span>
+              <p>You don’t have to follow a specific philosophy to improve yourself. My own journey is just getting started, and I don’t have all the answers. Find something that helps you grow, makes you mentally stronger and brings you peace of mind. Don’t force a mindset on yourself because someone says you should. Stoicism helped me, but that doesn’t mean it will work for you. Let what fits you evolve slowly over time.</p>
+            </div>
+            <div class="note">
+              <span class="label">Recommended reading</span>
+              <p>Berserk, or Vagabond, which I’m reading now. They may only be manga or graphic novels, but they can change your life if you let them. The lessons in these stories run deep and can inspire growth in ways you wouldn’t expect.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="entry" id="discipline">
+          <header><span class="label">Habits</span><h3>Discipline and consistency</h3></header>
+          <div class="body">
+            <div class="prose">
+              <p>These are two of the most important qualities in life, in the gym and out of it. Stay consistent with your food, training, sleep, work and relationships, and each of them will improve far faster than it would without consistency.</p>
+            </div>
+            <div class="defs">
+              <div class="def">
+                <span class="label">Discipline</span>
+                <h4>Do it anyway</h4>
+                <p>The art of doing what needs to be done, whether you feel like it or not.</p>
+                <p class="eg">Waking up early to train even when you’re tired.</p>
+              </div>
+              <div class="def">
+                <span class="label">Consistency</span>
+                <h4>Do it again</h4>
+                <p>Doing the right things over and over, day after day.</p>
+                <p class="eg">Doing that every single day until it becomes a routine.</p>
+              </div>
+            </div>
+
+            <h4 class="sub">Where I started</h4>
+            <div class="prose">
+              <p>When I was younger I was a gaming addict who barely went outside. At 18 I knew something had to change. I wanted my life to mean something, and I didn’t want to waste my time, because time is the most valuable resource we have. I started like most people, at home, with a scuffed, rusty bench. Not ideal, but real.</p>
+              <p>My first workouts were fueled by a deep desire to change. After a month or two I saw progress. My body began to transform, slowly but surely. From there the gym and the power of delayed gratification became a positive feedback loop that fed my hunger for more.</p>
+            </div>
+
+            <h4 class="sub">The first phase</h4>
+            <div class="prose">
+              <p>The hardest part is getting through the period before you see results. For some people it takes longer than for others, but everyone can change. Don’t compare your journey to anyone else’s. Everyone is running their own race, and comparison is the thief of joy.</p>
+              <p>At the beginning, motivation helps you survive the days when quitting feels easier. It can carry you through that critical early phase until habits form.</p>
+            </div>
+
+            <h4 class="sub">The hard days</h4>
+            <div class="prose">
+              <p>Even after six months, one year or two years, there are still hard days. How you act when you’re tired, unmotivated and frustrated is what will either break you or make you.</p>
+              <p>What pushes me harder is thinking back to the little boy who just wanted to be liked, and imagining how proud he would be to see me now, doing the things we once only dreamed of. When I feel down or weak, I picture my older self, disappointed and sad that I gave up when things got tough. That thought is enough to push me through almost anything.</p>
+            </div>
+
+            <div class="note">
+              <span class="label">Don’t follow me blindly</span>
+              <p>I got extreme with self-improvement at times, and I developed some unhealthy habits along the way. You don’t have to do it like I did. Take things at your own pace and find what works for you. I like pushing myself to the limit, but you don’t have to.</p>
+            </div>
+
+            <h4 class="sub">Set goals that mean something</h4>
+            <div class="prose">
+              <p>Make your goals realistic and meaningful. Don’t aim for something so unreachable that it crushes your motivation. A common goal in the gym is a 100 kg bench press, and if that works for you, great. Maybe you’re a father who wants to be fit enough to play more with your kids. Any goal is valid as long as it has meaning to you.</p>
+            </div>
+            <p class="pull">The only real failure is giving up on yourself.</p>
+          </div>
+        </article>
+
+        <article class="entry" id="humility">
+          <header><span class="label">Character</span><h3>Ego and humility</h3></header>
+          <div class="body">
+            <div class="defs">
+              <div class="def">
+                <span class="label">Keeps you grounded</span>
+                <h4>Gratitude</h4>
+                <p>Being thankful for what you have been given, whether or not you are religious.</p>
+              </div>
+              <div class="def">
+                <span class="label">Keeps you real</span>
+                <h4>Humility</h4>
+                <p>The attitude that you have no special importance that makes you better than others. You recognize your own value without believing it puts you above anyone else.</p>
+              </div>
+              <div class="def">
+                <span class="label">Keeps you moving forward</span>
+                <h4>Pride</h4>
+                <p>Acknowledging your own progress and being content with it. Bettering yourself naturally builds pride, and you should be proud of your hard work and growth.</p>
+              </div>
+              <div class="def">
+                <span class="label">Pulls you backward</span>
+                <h4>Ego</h4>
+                <p>An inflated feeling of pride in your superiority over others. The belief that you are better, more important or more deserving than those around you.</p>
+              </div>
+            </div>
+            <div class="prose">
+              <p>Don’t let pride turn into ego. Stay humble, because you don’t know someone else’s journey, and you can’t judge where someone is in life just by looking at them.</p>
+              <p>You will meet annoying, difficult people. Often they act that way because of insecurity, pain or a lack of competence, and they compensate through their behavior. Understanding this doesn’t mean you have to accept bad behavior. It reminds you not to fall into arrogance yourself.</p>
+              <p>Humility doesn’t mean believing you have no value. Your presence, actions and efforts have meaning, just like everyone else’s. Find the balance between staying grounded and being proud of what you’ve accomplished. Respect yourself and the work you’ve put in, and never put others down to validate yourself. Real strength is being proud without being arrogant, and being humble without forgetting your worth.</p>
+            </div>
+            <h4 class="sub">Practice gratitude</h4>
+            <div class="prose">
+              <p>Be grateful for everything: waking up in the morning, being able to read this, being able to walk, breathe and go to the gym to work on yourself.</p>
+              <p>Gratitude shows you how many unnecessary problems we create for ourselves. Many people around the world would dream of having the life you have right now. Never take it for granted.</p>
+            </div>
+            <p class="pull">Gratitude keeps you grounded. Humility keeps you real. Pride keeps you moving forward. But ego will always pull you backward. Choose wisely.</p>
+          </div>
+        </article>
+
+        <article class="entry" id="improvement">
+          <header><span class="label">Long game</span><h3>Continuous improvement</h3></header>
+          <div class="body">
+            <div class="prose">
+              <p>Don’t rush the process, and don’t think it ever truly ends. Improvement isn’t about doing all the right things at once. It is about gradually building a healthy mindset that brings peace and happiness. Over time the way you think and view the world shifts, shaped by new experiences and unexpected events.</p>
+              <p>Progress isn’t always loud or visible. Sometimes it is in the quiet choices you make daily. Get just 1% better each day, a 0.01 gain, and that small gain compounds. Over a year, 1 becomes 37.78. Drag the slider to see it build.</p>
+            </div>
+            <figure class="chart">
+              <svg id="chart" viewBox="0 0 420 260" role="img" aria-label="Line chart of 1 growing by 1 percent a day. It reaches 10 times at day 232, 20 times at day 302, 30 times at day 342 and 37.78 times at day 365."></svg>
+              <div class="slide">
+                <label class="label" for="day">Day of the year</label>
+                <input id="day" type="range" min="0" max="365" step="1" value="365">
+                <div class="readout" id="readout" aria-live="polite">Day 365: 37.78×</div>
+              </div>
+            </figure>
+            <p class="prose">So don’t underestimate the little things. They aren’t just steps on the path. They are the path.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NUTRITION ============ -->
+  <section class="chapter" id="nutrition" aria-labelledby="h-nutrition">
+    <div class="wrap">
+      <div class="chapter-head">
+        <h2 class="ch" id="h-nutrition">Nutrition</h2>
+        <p>Diet carries as much weight as training. Start with calories, then split them into protein, carbohydrates and fats.</p>
+      </div>
+      <nav class="topics" aria-label="Topics in Nutrition">
+        <a href="#macros">Macronutrients</a>
+        <a href="#targets">Daily targets</a>
+        <a href="#bulk-cut">Bulking and cutting</a>
+        <a href="#cardio">Cardio</a>
+      </nav>
+
+      <div class="entries">
+        <article class="entry" id="macros">
+          <header><span class="label">Fundamentals</span><h3>The three macronutrients</h3></header>
+          <div class="body">
+            <div class="prose">
+              <p>I split fitness into three parts: training at 40%, diet at 40% and recovery at 20%. Nutrition breaks down into protein, carbohydrates and fats. The exact ratio depends on your goal, whether that is bulking, cutting or maintenance, but these guidelines are a solid starting point.</p>
+            </div>
+            <div class="macros">
+              <div class="macro">
+                <span class="label">The building block</span>
+                <h4>Protein</h4>
+                <div class="fig">1.8–2.2<small>g per kg bodyweight</small></div>
+                <p>Essential for muscle growth and repair. I weigh 95 kg, so I aim for around 200 g a day.</p>
+                <ul class="chips">
+                  <li>Chicken breast</li><li>Lean ground beef</li><li>Protein shakes</li><li>Eggs and egg whites</li><li>Low-fat dairy</li>
+                </ul>
+              </div>
+              <div class="macro">
+                <span class="label">The main fuel</span>
+                <h4>Carbohydrates</h4>
+                <div class="fig">4–5<small>g per kg, my current intake</small></div>
+                <p>Your body’s preferred fuel, especially in intense training. Stored as glycogen in muscle and liver, carbs affect your performance and how your muscles look, full or flat. At 95 kg I eat 380–475 g a day, roughly 1,520–1,900 kcal.</p>
+                <ul class="chips">
+                  <li>White rice</li><li>Pasta</li><li>Potatoes</li><li>Fruits</li><li>Vegetables</li><li>Some bread, in moderation</li>
+                </ul>
+              </div>
+              <div class="macro">
+                <span class="label">Crucial for hormones</span>
+                <h4>Fats</h4>
+                <div class="fig">Don’t go low<small>no fixed target</small></div>
+                <p>Many people minimize fat, especially when cutting, but going too low backfires. Too little can lower testosterone, increase the risk of acne and sometimes lead to gynecomastia. I made this mistake: when I cut fats too aggressively my hormones got out of balance and I had noticeable side effects.</p>
+                <ul class="chips">
+                  <li>Whole eggs</li><li>Fatty fish: salmon, mackerel</li><li>Nuts and seeds</li><li>Olive oil</li><li>Avocados</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="entry" id="targets">
+          <header><span class="label">Calculator</span><h3>Daily targets</h3></header>
+          <div class="body">
+            <div class="prose">
+              <p>Enter your bodyweight and goal. These are starting points from the manual, so check them against your own weight trend and adjust.</p>
+            </div>
+            <div class="panel calc">
+              <div>
+                <div class="field">
+                  <label class="label" for="kg">Bodyweight (kg)</label>
+                  <input class="num" id="kg" type="number" inputmode="decimal" min="30" max="250" step="0.5" value="95">
+                </div>
+                <div class="field">
+                  <span class="label" id="goal-label">Goal</span>
+                  <div class="seg" role="group" aria-labelledby="goal-label" id="goal">
+                    <button type="button" data-goal="maintain" aria-pressed="false">Maintain</button>
+                    <button type="button" data-goal="bulk" aria-pressed="true">Bulk</button>
+                    <button type="button" data-goal="cut" aria-pressed="false">Cut</button>
+                  </div>
+                </div>
+              </div>
+              <div id="calc-out" aria-live="polite"></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="entry" id="bulk-cut">
+          <header><span class="label">Energy balance</span><h3>Bulking and cutting</h3></header>
+          <div class="body">
+            <div class="prose">
+              <p>Changing your body comes down to one principle: calories in versus calories out. First find your maintenance calories, the amount that keeps your weight stable. It depends on your basal metabolic rate (BMR), what your body burns at rest, and your daily activity, from workouts to walking around.</p>
+              <p>Use an online calculator or track your weight over a few weeks to get a solid number, then make small adjustments for your goal.</p>
+            </div>
+            <div class="pair">
+              <div class="def">
+                <span class="label">Gain muscle</span>
+                <h4>Bulking</h4>
+                <p>Eat slightly above maintenance. Bulking is a bit easier than cutting because you have more room to fit your macros.</p>
+                <ul class="rules">
+                  <li>Start at +250 to +500 kcal a day.</li>
+                  <li>Don’t overshoot. Too many extra calories just become fat.</li>
+                  <li>Keep protein steady at 1.8–2.2 g per kg.</li>
+                  <li>Add the extra calories as carbs and fats.</li>
+                  <li>Monitor your weight and adjust weekly.</li>
+                </ul>
+              </div>
+              <div class="def">
+                <span class="label">Lose fat</span>
+                <h4>Cutting</h4>
+                <p>Create a slight deficit by eating fewer calories than you burn.</p>
+                <ul class="rules">
+                  <li>Raise protein to 2.2–2.5 g per kg to preserve muscle.</li>
+                  <li>Reduce carbs and fats gradually. Don’t crash your intake.</li>
+                  <li>Stay active and keep strength training.</li>
+                  <li>Make small adjustments weekly based on how your body responds.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="entry" id="cardio">
+          <header><span class="label">Conditioning</span><h3>Cardio</h3></header>
+          <div class="body">
+            <div class="prose">
+              <p>Don’t skip cardio. It’s easy to see it only as a fat-loss tool, but its benefits go further. Cardio improves your cardiovascular health, supports recovery, builds endurance and can even extend your lifespan. It is about your overall quality of life, not just getting lean.</p>
+              <p>Even during a bulk, stay active. A walk, a swim or a bike ride won’t sabotage your muscle gains. It can support them by improving blood flow and recovery.</p>
+              <p>When you cut, cardio that is already part of your routine makes the fat loss phase easier, because the extra calories burned add up over the week.</p>
+            </div>
+            <div>
+              <span class="label">What I do</span>
+              <ul class="chips" style="margin-top:8px"><li>Rope skipping</li><li>Incline walking</li><li>Biking</li></ul>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RECOVERY ============ -->
+  <section class="chapter" id="recovery" aria-labelledby="h-recovery">
+    <div class="wrap">
+      <div class="chapter-head">
+        <h2 class="ch" id="h-recovery">Recovery</h2>
+        <p>More is not always better. Progress doesn’t come from constant grinding. It comes from proper recovery, and quality beats quantity every time.</p>
+      </div>
+      <div class="entries">
+        <article class="entry" id="muscle-recovery">
+          <header><span class="label">Muscle recovery</span><h3>Quality beats quantity</h3></header>
+          <div class="body">
+            <div class="prose">
+              <p>When I first started, I made the mistake of training every single day, thinking more sessions would mean faster results. Instead I saw slow progress and constant fatigue.</p>
+              <p>Recovery is personal. Some people bounce back quickly, while others, like me, need more time, especially after an injury. Since my shoulder injury I’ve learned to be extra cautious and to build my training split around it, so I avoid overworking the joint and stay injury-free.</p>
+            </div>
+            <div class="tips">
+              <div class="def">
+                <span class="label">Rest days</span>
+                <h4>Don’t skip them</h4>
+                <p>Rest days let your muscles repair and grow.</p>
+              </div>
+              <div class="def">
+                <span class="label">Sleep</span>
+                <div class="fig">8 h+<small>per night, at least</small></div>
+                <p>Sleep doesn’t just affect recovery. It also plays a crucial role in testosterone production and overall hormone balance.</p>
+              </div>
+              <div class="def">
+                <span class="label">Soreness</span>
+                <h4>Listen to your body</h4>
+                <p>If a muscle is still sore, it hasn’t fully recovered. Training it again too soon stops you from training at full intensity and can slow your progress.</p>
+              </div>
+            </div>
+            <p class="pull">Training smart includes knowing when to back off. That’s how real, long-term gains are made.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SUPPLEMENTS ============ -->
+  <section class="chapter" id="supplements" aria-labelledby="h-supplements">
+    <div class="wrap">
+      <div class="chapter-head">
+        <h2 class="ch" id="h-supplements">Supplements</h2>
+        <p>I count a supplement as anything that boosts performance or fills a gap in your nutrition without being part of your regular whole-food diet.</p>
+      </div>
+      <div class="entries">
+        <article class="entry" id="what-i-take">
+          <header><span class="label">My stack</span><h3>What I take</h3></header>
+          <div class="body">
+            <div class="supps">
+              <div class="supp">
+                <span class="label">Most researched</span>
+                <h4>Creatine</h4>
+                <div class="fig">5–6 g<small>daily, about 2.5 years straight</small></div>
+                <ul class="rules">
+                  <li>Gives you energy in the gym so you can push harder.</li>
+                  <li>Increases muscle fullness by pulling water into the muscles.</li>
+                  <li>Some say it boosts mental focus. I haven’t noticed that.</li>
+                </ul>
+              </div>
+              <div class="supp">
+                <span class="label">Daily essential</span>
+                <h4>Magnesium</h4>
+                <div class="fig">Daily<small>I take it every day</small></div>
+                <p>Helps prevent muscle cramps and improves sleep quality, two things that matter a lot for recovery.</p>
+              </div>
+              <div class="supp">
+                <span class="label">Daily essential</span>
+                <h4>Zinc</h4>
+                <div class="fig">Planned<small>I’m adding it soon</small></div>
+                <p>Supports hormone function, aids testosterone production and helps recovery. Magnesium and zinc aren’t essential for everyone, but they’ve supported my recovery and performance.</p>
+              </div>
+              <div class="supp">
+                <span class="label">Convenience</span>
+                <h4>Protein powder</h4>
+                <div class="fig">As needed<small>to hit your protein goal</small></div>
+                <p>A great tool if you struggle to reach your daily protein, but I still get most of mine from whole foods like chicken, beef and eggs. Buy from a reputable brand in your area so you get what’s on the label.</p>
+              </div>
+              <div class="supp">
+                <span class="label">Optional</span>
+                <h4>Pre-workout</h4>
+                <div class="fig">Sparingly<small>never required</small></div>
+                <p>Is it necessary? No. Does it sometimes help? Absolutely. I’ve never touched a scoop and still train. When my energy is low I have a Monster Zero to wake up a bit. Don’t build a dependency. Needing more and more for the same effect isn’t good for your health.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="entry" id="peds">
+          <header><span class="label">My position</span><h3>PEDs</h3></header>
+          <div class="body">
+            <div class="panel ped">
+              <h3>Don’t do them.</h3>
+              <div class="prose">
+                <p>I don’t do them, and you don’t need them, especially in your first couple of years of training. Building muscle takes time, effort and consistency. PEDs might speed up the process, but at a huge cost. You’ll see faster growth, but true progress isn’t just the size of your muscles. It is strength, fortitude and mental health.</p>
+              </div>
+              <div>
+                <span class="label">Serious risks include</span>
+                <ul class="risks" style="margin-top:10px">
+                  <li>Hormonal imbalances</li><li>Liver damage</li><li>Increased risk of heart disease</li><li>Mental health issues</li>
+                </ul>
+              </div>
+              <div class="prose">
+                <p>You’re starting on the natural path, and that’s all you need. There’s no magic pill or shortcut. The real gains come from hard work, patience and dedication over time. I don’t hate people who openly use PEDs, but for 99% of people they’re simply not needed. You won’t find any advice on PEDs here.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TRAINING ============ -->
+  <section class="chapter" id="training" aria-labelledby="h-training">
+    <div class="wrap">
+      <div class="chapter-head">
+        <h2 class="ch" id="h-training">Training</h2>
+        <p>Two ways to run push, pull, legs, and the rules that make either one work: how to warm up, how many sets to do, and how to keep progressing.</p>
+      </div>
+      <nav class="topics" aria-label="Topics in Training">
+        <a href="#warm-up">Warm-up</a>
+        <a href="#programs">The programs</a>
+        <a href="#reps-sets">Reps and sets</a>
+        <a href="#overload">Progressive overload</a>
+        <a href="#form-intensity">Form and intensity</a>
+      </nav>
+
+      <div class="entries">
+        <article class="entry" id="warm-up">
+          <header><span class="label">Before every session</span><h3>Warm up first</h3></header>
+          <div class="body">
+            <p class="pull">Warming up and stretching is non-negotiable.</p>
+            <div class="prose">
+              <p>Every session I start with elastic bands, dynamic stretches and ideally 5 minutes of walking on the treadmill to get my body warm. It isn’t optional. It helps prevent injuries and gets your body ready to train.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="entry" id="programs">
+          <header><span class="label">Splits</span><h3>Two ways to run push, pull, legs</h3></header>
+          <div class="body">
+            <div class="panel">
+              <div class="tabs" role="tablist" aria-label="Choose a program">
+                <button type="button" role="tab" id="tab-starter" aria-controls="panel-starter" aria-selected="true">Starter program</button>
+                <button type="button" role="tab" id="tab-irregular" aria-controls="panel-irregular" aria-selected="false" tabindex="-1">Irregular modified program</button>
+              </div>
+
+              <div class="tabpanel" id="panel-starter" role="tabpanel" aria-labelledby="tab-starter">
+                <div class="prose">
+                  <p>For beginners I recommend a classic push, pull, legs routine. It’s simple, effective and easy to recover from when intensity stays in check. You hit each muscle group twice a week, which suits beginners as long as recovery is managed.</p>
+                </div>
+                <div class="week" id="starter-week" aria-label="Weekly structure"></div>
+                <div class="pills" role="group" aria-label="Filter exercises by day" id="starter-filter">
+                  <button type="button" class="pill" data-day="all" aria-pressed="true">All days</button>
+                  <button type="button" class="pill" data-day="push" aria-pressed="false">Push</button>
+                  <button type="button" class="pill" data-day="pull" aria-pressed="false">Pull</button>
+                  <button type="button" class="pill" data-day="legs" aria-pressed="false">Legs</button>
+                </div>
+                <div class="exgrid" id="starter-ex"></div>
+                <p class="expl" id="starter-note"></p>
+              </div>
+
+              <div class="tabpanel" id="panel-irregular" role="tabpanel" aria-labelledby="tab-irregular" hidden>
+                <div class="prose">
+                  <p>Push, rest, pull, legs, rest, then repeat. Because the cycle is 5 days long it ignores the calendar week, so you train 4 to 5 days a week depending on where the cycle falls. Once every 5 weeks you get 5 training days in one week.</p>
+                  <p>It prioritizes recovery, which matters with a past injury like a shoulder. It works well if your schedule is flexible and isn’t ideal for a fixed weekly routine.</p>
+                </div>
+                <div class="week five" aria-label="The five-day cycle">
+                  <div class="day k-push">Push</div>
+                  <div class="day k-rest">Rest</div>
+                  <div class="day k-pull">Pull</div>
+                  <div class="day k-legs">Legs</div>
+                  <div class="day k-rest">Rest</div>
+                </div>
+                <div>
+                  <span class="label">Five weeks, starting on a Monday with push</span>
+                  <div class="cal" id="cal" style="margin-top:10px" role="table" aria-label="Five weeks of the irregular cycle"></div>
+                  <p class="calnote" id="calnote" style="margin-top:10px"></p>
+                </div>
+                <div class="defs">
+                  <div class="def">
+                    <span class="label">Why this works</span>
+                    <ul class="rules">
+                      <li>Every push day is followed by a rest day, so your shoulders and pressing muscles get more time to recover.</li>
+                      <li>You never train push and pull back to back, so your upper body isn’t overworked.</li>
+                      <li>You can push harder in each session because you’re not running on fatigue.</li>
+                      <li>With a lingering injury you can recover without skipping whole weeks.</li>
+                    </ul>
+                  </div>
+                  <div class="def">
+                    <span class="label">Intensity</span>
+                    <h4>Every set to failure</h4>
+                    <p>In this split you don’t manage reps in reserve (RIR). You take every set to failure, pushing each exercise to its limit, and aim for growth through full exhaustion.</p>
+                    <p class="eg">The starter program is the opposite: control and form first, no absolute failure.</p>
+                  </div>
+                </div>
+                <div>
+                  <span class="label">Push day</span>
+                  <div class="exgrid" id="irregular-ex" style="margin-top:10px"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="entry" id="reps-sets">
+          <header><span class="label">My method</span><h3>Reps and sets</h3></header>
+          <div class="body">
+            <div class="prose">
+              <p>I started with the standard 3 sets of 10–12 reps, but that style didn’t suit me. I wanted to go heavier and get in and out of the gym more efficiently, so I changed my approach.</p>
+            </div>
+            <div class="facts">
+              <div class="fact">
+                <div class="fig">2 × 6–10</div>
+                <h4>All-out working sets</h4>
+                <p>For most compound and strength-focused exercises, to push your strength.</p>
+              </div>
+              <div class="fact">
+                <div class="fig">2–3 × 10–15</div>
+                <h4>Hypertrophy work</h4>
+                <p>Control, muscle contraction and execution, depending on fatigue and how well the earlier lifts went.</p>
+              </div>
+              <div class="fact">
+                <div class="fig">1–4</div>
+                <h4>Warm-up sets</h4>
+                <p>More on big lifts like squats or incline dumbbell press. On smaller movements, a few light reps to check everything feels good.</p>
+              </div>
+              <div class="fact">
+                <div class="fig">1–3 min</div>
+                <h4>Rest between sets</h4>
+                <p>Adjusted to the intensity and goal of the exercise.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="entry" id="overload">
+          <header><span class="label">Progress</span><h3>Progressive overload</h3></header>
+          <div class="body">
+            <div class="prose">
+              <p>If you want serious muscle and strength, progressive overload isn’t optional. It is the foundation. It means gradually increasing the weight, reps or intensity of an exercise over time. Without it you’re repeating workouts, not improving, and you’ll hit plateaus fast because your body adapts to what you give it.</p>
+              <p>The easiest and most effective way is to track your sets and reps every session. Once you hit a personal threshold, you increase the weight. Mine: on most exercises I add weight after hitting 10+ reps. On heavy lifts like squats I add weight once I go above 7 reps.</p>
+              <p>Track with a notebook, which is old school but still effective, or an app that logs sets and weights, like Arrow. The key is consistency. Track everything.</p>
+            </div>
+            <div class="panel check">
+              <div>
+                <div class="field">
+                  <label class="label" for="reps">Reps on your last working set</label>
+                  <input class="num" id="reps" type="number" inputmode="numeric" min="1" max="50" step="1" value="10">
+                </div>
+                <div class="field">
+                  <span class="label" id="lift-label">Type of lift</span>
+                  <div class="seg" role="group" aria-labelledby="lift-label" id="lift">
+                    <button type="button" data-lift="most" aria-pressed="true">Most lifts</button>
+                    <button type="button" data-lift="heavy" aria-pressed="false">Heavy lift</button>
+                  </div>
+                </div>
+              </div>
+              <div class="verdict" id="verdict" aria-live="polite"></div>
+            </div>
+
+            <h4 class="sub">If you plateau</h4>
+            <div class="prose">
+              <p>First make sure it’s a real plateau, not just a bad day or week. If it is, here is how I break it.</p>
+            </div>
+            <div class="defs">
+              <div class="def">
+                <span class="label">Option one</span>
+                <h4>Change the rep range</h4>
+                <p>Drop to lower reps (3–6) and go heavier to build strength. Once you’re stronger, return to your usual range and smash it.</p>
+              </div>
+              <div class="def">
+                <span class="label">Option two</span>
+                <h4>Slow down your tempo</h4>
+                <p>Focus on the eccentric, the lowering phase, to really tax your muscles. More time under tension means more growth.</p>
+              </div>
+              <div class="def">
+                <span class="label">Option three</span>
+                <h4>Swap the exercise</h4>
+                <p>Replace it with a similar movement for a few weeks. When you come back, you’ll usually break through the sticking point.</p>
+              </div>
+              <div class="def">
+                <span class="label">Option four</span>
+                <h4>Just eat more</h4>
+                <p>Simple but true. If all else fails, more food means more fuel and more strength. See the Nutrition chapter.</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="entry" id="form-intensity">
+          <header><span class="label">Technique</span><h3>Form and intensity by muscle</h3></header>
+          <div class="body">
+            <div class="prose">
+              <p>Intensity isn’t only about adding weight. It’s about how you perform each rep. These are the cues I use for clean form and for pushing past plateaus.</p>
+            </div>
+            <div class="muscles" id="muscles"></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="brand" href="#top">The Berserker’s Manual</a>
+    <p>Everything here comes from one lifter’s experience and isn’t medical advice. If you have a health condition, talk to a doctor before changing your diet, supplements or training.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)};
+  var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var esc=function(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})};
+  var fmt=function(n){return Math.round(n).toLocaleString('en-US')};
+
+  /* ---------- Exercise data ---------- */
+  var EX={
+    starter:[
+      {day:"push",group:"Chest",focus:"Whole chest",name:"Machine Chest Press / Supine Press / Bench Press",rx:"3 × 6–10",warm:"Warm-up: 1–2 light sets of 5–6 reps",cues:["Don’t train to absolute failure, especially if you’re new. Focus on control and form.","Works the whole chest, front delts and triceps."]},
+      {day:"push",group:"Chest",focus:"Upper chest",name:"Smith Machine Incline Bench Press",rx:"2 × 7–10",warm:"Warm-up: 1 light set to check positioning",cues:["Set the bench to a 30° incline, usually the first notch up.","Line the bar up with your upper chest. It should feel natural."]},
+      {day:"push",group:"Chest",focus:"Finisher",name:"Machine Chest Fly",rx:"2 × 10",sub:"sets × burning reps",cues:["Keep the movement slow and controlled.","Bring your chest forward throughout to keep tension.","Don’t jerk the weight. Your shoulders are still vulnerable here.","Aim for a deep stretch and a hard squeeze."]},
+      {day:"push",group:"Triceps",focus:"Lateral head",name:"Rope Tricep Pushdowns",rx:"2 × 10–15",cues:["Back straight, elbows tucked in and pinned to your sides.","The only movement comes from your forearms extending downward.","Focus on full extension and control."]},
+      {day:"push",group:"Triceps",focus:"Long head",name:"Overhead Cable Tricep Extensions",rx:"2 × 10–12",cues:["Set the cable low to the ground.","Keep your elbows high and close to your head.","Use a light weight and slow, controlled reps."]},
+      {day:"push",group:"Side delts",focus:"Optional",name:"Lateral Raises, Dumbbell or Cable",sub:"Optional, no set target",cues:["I skip direct side delt work because these exercises irritate my shoulders.","If they feel good for you, they’re a solid addition."]},
+      {day:"pull",group:"Back",focus:"Lats",name:"Lat Pulldown",rx:"2 × 7–10",cues:["Grip the bar slightly wider than shoulder width.","Pull the bar to your upper chest, not behind your neck.","Keep your chest up and drive your elbows down.","Fully stretch your lats between reps."]},
+      {day:"pull",group:"Back",focus:"Upper back",name:"Seated Cable Row, Wide Grip",rx:"3 × 10–12",cues:["Use a wide grip bar.","Sit tall, pull to mid-chest and squeeze your shoulder blades together.","Control the eccentric, the return."]},
+      {day:"pull",group:"Rear delts",focus:"Rear delts",name:"Rear Delt Fly",rx:"2 × 10–14",cues:["Pull with your rear delts, not your traps.","Slow, controlled reps with full range."]},
+      {day:"pull",group:"Biceps",focus:"Long head",name:"Standing Barbell Bicep Curl",rx:"2 × 8–14",cues:["Stand upright with your elbows locked to your sides.","Don’t swing the bar. Use control."]},
+      {day:"pull",group:"Biceps",focus:"Short head",name:"Preacher Curl",rx:"2–3 × 8–10",cues:["Don’t let your arms go fully slack at the bottom. Keep tension.","Use a controlled pace to avoid bouncing."]},
+      {day:"pull",group:"Forearms",focus:"Forearms",name:"Behind-The-Back Forearm Curl",rx:"2–3 × 15–20",cues:["Hold a barbell behind your back with your palms facing out.","Curl the bar up using just your wrists.","Control the way down to avoid dropping it."]},
+      {day:"legs",group:"Quads",focus:"Quads",name:"Leg Press / Hack Squat",rx:"2 × 10–12",cues:["Keep your feet shoulder-width apart on the platform.","Lower the sled until your knees are around 90°, not too deep.","Don’t lock out your knees at the top.","Stay in control on both the push and the return."]},
+      {day:"legs",group:"Quads",focus:"Quads",name:"Leg Extension",rx:"3 × 10–15",cues:["Extend with control. Don’t snap your knees.","Lower slowly to maintain tension."]},
+      {day:"legs",group:"Hamstrings",focus:"Hamstrings",name:"Seated or Lying Hamstring Curl",rx:"2 × 7–10",cues:["Adjust the pad so it feels comfortable.","Pull the weight with control and squeeze at the top.","Return slowly without letting it slam."]},
+      {day:"legs",group:"Calves",focus:"Calves",name:"Calf Raises",sub:"Any type of calf raise",cues:["Any variation works."]},
+      {day:"legs",group:"Abs",focus:"Abs",name:"Machine Ab Crunches",rx:"3 × 12+",cues:["Curl forward using your abs, not your arms.","Exhale as you crunch, inhale as you return."]}
+    ],
+    irregular:[
+      {day:"push",group:"Chest",focus:"Upper chest",name:"Incline Dumbbell Bench Press",rx:"2 × 6–10",sub:"heavy working sets",warm:"Warm-up: 2 sets. Optional 3rd working set if the first two weren’t solid.",cues:["Control the weight. Don’t ego lift.","Ask for a spot if you’re unsure about your working weight."]},
+      {day:"push",group:"Chest",focus:"Whole chest",name:"Supine (Flat) Press, Machine or Dumbbell",rx:"2 × 6–8",sub:"heavy sets",cues:["Controlled reps, no bouncing.","Press with your chest, not just your shoulders and triceps."]},
+      {day:"push",group:"Chest",focus:"Mid and lower chest",name:"High-to-Low Cable Chest Press / Fly Hybrid",rx:"2 × 7–12",cues:["Use the top cable position.","Tuck your elbows and press in a straight line.","Focus on the chest squeeze, not shoulder motion."]},
+      {day:"push",group:"Chest",focus:"Upper chest",name:"Lower-to-Upper Cable Fly",rx:"1 × 10–15",cues:["Cable from low to high, almost a hugging motion.","Stretch at the bottom, squeeze at the top."]},
+      {day:"push",group:"Triceps",focus:"Long head",name:"Incline Skullcrushers, EZ Bar",rx:"2 × 8–16",sub:"30° bench angle",cues:["Keep your elbows close to your head, not flared.","Slow eccentric, full range."]},
+      {day:"push",group:"Triceps",focus:"Lateral head",name:"V-Bar Cable Tricep Pushdown",rx:"2 sets",sub:"1st: 10–15 reps · 2nd: 8–10 reps",cues:["Keep your elbows tight.","Push with control."]},
+      {day:"push",group:"Triceps",focus:"Medium head",name:"Single-Arm Cable Pushdown",rx:"2 × 5–7",sub:"per arm",cues:["Focus on contraction and control. Don’t rush."]},
+      {day:"push",group:"Chest",focus:"Optional finisher",name:"Chest Cable Flies, Arm Sweep Style",rx:"1 set",sub:"to failure",cues:["Cables at shoulder height, sweeping inward with a high squeeze."]},
+      {day:"push",group:"Chest and triceps",focus:"Optional finisher",name:"Dips",sub:"Add if you have more in the tank",cues:["Lean forward for more chest. Stay upright for more triceps.","Bodyweight or weighted, depending on your strength level."]},
+      {day:"push",group:"Side delts",focus:"Optional",name:"Lateral Raises, Cable or Dumbbell",rx:"2 sets",sub:"slow and fully controlled",cues:["For boulder shoulders, if you don’t have shoulder pain.","I recommend doing them seated.","Go slow and controlled so you don’t injure your shoulders."]}
+    ]
+  };
+
+  function card(x){
+    var rx=x.rx?'<div class="rx"><b>'+esc(x.rx)+'</b><span>'+esc(x.sub||'sets × reps')+'</span></div>':(x.sub?'<div class="rx"><span>'+esc(x.sub)+'</span></div>':'');
+    var warm=x.warm?'<p class="warm">'+esc(x.warm)+'</p>':'';
+    var cues='<ul>'+x.cues.map(function(c){return '<li>'+esc(c)+'</li>'}).join('')+'</ul>';
+    var tag=x.group===x.focus?x.group:x.group+' · '+x.focus;
+    return '<article class="ex"><span class="tag">'+esc(tag)+'</span><h4>'+esc(x.name)+'</h4>'+rx+warm+cues+'</article>';
+  }
+
+  /* ---------- Tabs ---------- */
+  var tablist=$('.tabs');
+  var tabs=$$('[role="tab"]',tablist);
+  var panels=tabs.map(function(t){return document.getElementById(t.getAttribute('aria-controls'))});
+  function selectTab(i,focus){
+    tabs.forEach(function(t,j){
+      var on=i===j;
+      t.setAttribute('aria-selected',on?'true':'false');
+      t.tabIndex=on?0:-1;
+      panels[j].hidden=!on;
+    });
+    if(focus)tabs[i].focus();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){selectTab(i)});
+    t.addEventListener('keydown',function(e){
+      var n=null,k=e.key;
+      if(k==='ArrowRight'||k==='ArrowDown')n=(i+1)%tabs.length;
+      else if(k==='ArrowLeft'||k==='ArrowUp')n=(i-1+tabs.length)%tabs.length;
+      else if(k==='Home')n=0;
+      else if(k==='End')n=tabs.length-1;
+      if(n!==null){e.preventDefault();selectTab(n,true)}
+    });
+  });
+
+  /* ---------- Starter program ---------- */
+  var week=[['Mon','Push'],['Tue','Pull'],['Wed','Legs'],['Thu','Rest'],['Fri','Push'],['Sat','Pull'],['Sun','Legs']];
+  $('#starter-week').innerHTML=week.map(function(d){
+    return '<div class="day k-'+d[1].toLowerCase()+'"><small>'+d[0]+'</small>'+d[1]+'</div>';
+  }).join('');
+
+  var dayFilter='all';
+  function drawStarter(){
+    var list=EX.starter.filter(function(x){return dayFilter==='all'||x.day===dayFilter});
+    $('#starter-ex').innerHTML=list.map(card).join('');
+    $('#starter-note').textContent=(dayFilter==='all'||dayFilter==='push')?'The medium head of the triceps gets trained enough by the push exercises above, so it has no exercise of its own.':'';
+  }
+  $$('#starter-filter .pill').forEach(function(b){
+    b.addEventListener('click',function(){
+      dayFilter=b.getAttribute('data-day');
+      $$('#starter-filter .pill').forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false')});
+      drawStarter();
+    });
+  });
+  drawStarter();
+
+  /* ---------- Irregular program ---------- */
+  $('#irregular-ex').innerHTML=EX.irregular.map(card).join('')+'<div class="ex soon"><span class="tag">Pull and legs days</span><p>Exercise selection for these days is coming soon.</p></div>';
+
+  var seq=['Push','Rest','Pull','Legs','Rest'];
+  var heads=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  var counts=[];
+  var cal='<div></div>'+heads.map(function(h){return '<div class="h">'+h+'</div>'}).join('');
+  for(var w=0;w<5;w++){
+    var c=0,cells='';
+    for(var d=0;d<7;d++){
+      var t=seq[(w*7+d)%5];
+      if(t!=='Rest')c++;
+      cells+='<div class="day k-'+t.toLowerCase()+'">'+t+'</div>';
+    }
+    counts.push(c);
+    cal+='<div class="w'+(c===5?' hit':'')+'">W'+(w+1)+'</div>'+cells;
+  }
+  $('#cal').innerHTML=cal;
+  var total=counts.reduce(function(a,b){return a+b},0);
+  var five=counts.indexOf(5);
+  $('#calnote').textContent='Training days per week: '+counts.join(', ')+'. Week '+(five+1)+' gets the fifth day, and the pattern repeats every 5 weeks. That averages '+(total/5).toFixed(1)+' training days a week.';
+
+  /* ---------- Form and intensity ---------- */
+  var MUSCLES=[
+    {n:"Chest",form:"Pull your shoulders back and down into the bench. This creates a natural arch in your back and helps isolate your chest. Keep your butt on the bench and don’t overdo the arch.",int:"Push your chest forward and keep your shoulders pulled back. This takes pressure off your shoulders and locks the tension into your chest. As you get comfortable, let the weight stretch your chest fully before pressing back up."},
+    {n:"Triceps",form:"Keep your back straight and your core engaged. Your upper arms stay locked in place, so they’re just a hinge. Don’t let your shoulders or elbows swing around. All the movement should come from your forearms.",int:"On pushdowns, lean slightly over the bar to get a better angle and a deeper range. You get a harder contraction and a bigger stretch at the bottom."},
+    {n:"Back",form:"On machines, fully stretch your back during the eccentric part of the rep. It’s okay to let your upper back round slightly for a deeper stretch, but only if the machine gives solid support and you’re in full control. Never do this on free-weight lifts like deadlifts. Keep your spine neutral there.",int:"On chest-supported rows, let your back round slightly at the bottom for a deeper stretch across the lats. Pause in the stretch, then pull hard, focusing on contracting the muscle instead of just moving the weight."},
+    {n:"Biceps",form:"Keep your whole body tight on every rep, especially your core and upper arms. Don’t loosen up halfway through a movement. Swaying or bouncing kills the rep and can injure your elbows and lower back. Stay strict, stay controlled.",int:"When you’re gassed near the end of a set, controlled cheating is okay. Swing the weight a bit to squeeze out a few extra reps. For even more intensity, take the last rep and drag the eccentric out for a full 10 seconds."},
+    {n:"Legs",form:"",int:"On squats, control the way down slowly and pause for a second at the bottom. That kills momentum and forces your quads and glutes to work harder."}
+  ];
+  $('#muscles').innerHTML=MUSCLES.map(function(m){
+    return '<article class="muscle"><h4>'+esc(m.n)+'</h4>'+
+      (m.form?'<section><span class="label">Form</span><p>'+esc(m.form)+'</p></section>':'')+
+      (m.int?'<section><span class="label">Intensity</span><p>'+esc(m.int)+'</p></section>':'')+
+      '</article>';
+  }).join('');
+
+  /* ---------- Daily targets calculator ---------- */
+  var goal='bulk';
+  var COPY={
+    maintain:{h:'Eat at maintenance',t:'Maintenance is your resting burn (BMR) plus daily activity. An online calculator gives a first estimate, and a few weeks of tracking your weight confirms it.'},
+    bulk:{h:'Maintenance + 250 to 500 kcal a day',t:'Keep protein steady, add the extra calories as carbs and fats, and check your weight weekly. A bigger surplus mostly adds fat.'},
+    cut:{h:'A slight deficit below maintenance',t:'Raise protein to protect muscle, reduce carbs and fats gradually instead of crashing them, keep strength training, and adjust weekly.'}
+  };
+  function calc(){
+    var kg=parseFloat($('#kg').value);
+    var out=$('#calc-out');
+    if(!(kg>=30&&kg<=250)){out.innerHTML='<p class="hint">Enter a bodyweight between 30 and 250 kg.</p>';return}
+    var pr=goal==='cut'?[2.2,2.5]:[1.8,2.2];
+    var pLo=kg*pr[0],pHi=kg*pr[1];
+    var cLo=kg*4,cHi=kg*5;
+    var c=COPY[goal];
+    out.innerHTML='<dl class="res">'+
+      '<div><dt>Protein</dt><dd class="v"><em>'+fmt(pLo)+'–'+fmt(pHi)+' g</em> a day</dd><dd class="t">'+pr[0]+'–'+pr[1]+' g per kg, about '+fmt(pLo*4)+'–'+fmt(pHi*4)+' kcal.</dd></div>'+
+      '<div><dt>Calories</dt><dd class="v">'+esc(c.h)+'</dd><dd class="t">'+esc(c.t)+'</dd></div>'+
+      '<div><dt>Carbs, my own intake</dt><dd class="v"><em>'+fmt(cLo)+'–'+fmt(cHi)+' g</em> a day</dd><dd class="t">4–5 g per kg, about '+fmt(cLo*4)+'–'+fmt(cHi*4)+' kcal. This is what I eat, not a rule. '+(goal==='cut'?'When cutting, reduce it gradually.':'')+'</dd></div>'+
+      '<div><dt>Fats</dt><dd class="v">No fixed number</dd><dd class="t">Don’t cut them to the floor. Too little can lower testosterone, cause acne and sometimes gynecomastia.</dd></div>'+
+      '</dl>';
+  }
+  $('#kg').addEventListener('input',calc);
+  $$('#goal button').forEach(function(b){
+    b.addEventListener('click',function(){
+      goal=b.getAttribute('data-goal');
+      $$('#goal button').forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false')});
+      calc();
+    });
+  });
+  $$('#goal button').forEach(function(o){o.setAttribute('aria-pressed',o.getAttribute('data-goal')===goal?'true':'false')});
+  calc();
+
+  /* ---------- Overload checker ---------- */
+  var lift='most';
+  function verdict(){
+    var reps=parseInt($('#reps').value,10);
+    var el=$('#verdict');
+    if(!(reps>=1)){el.innerHTML='<p>Enter the reps you hit on your last working set.</p>';return}
+    var heavy=lift==='heavy';
+    var go=heavy?reps>7:reps>=10;
+    var rule=heavy?'above 7 reps':'10 or more reps';
+    if(go){
+      el.innerHTML='<div class="v go">Add weight next session</div><p>You hit '+reps+' reps, which clears my threshold of '+rule+' on '+(heavy?'heavy lifts like squats':'most exercises')+'.</p>';
+    }else{
+      var need=heavy?8:10;
+      el.innerHTML='<div class="v">Keep this weight</div><p>You hit '+reps+'. Aim for '+need+'+ reps at this weight first, then add load. My threshold is '+rule+'.</p>';
+    }
+  }
+  $('#reps').addEventListener('input',verdict);
+  $$('#lift button').forEach(function(b){
+    b.addEventListener('click',function(){
+      lift=b.getAttribute('data-lift');
+      $$('#lift button').forEach(function(o){o.setAttribute('aria-pressed',o===b?'true':'false')});
+      verdict();
+    });
+  });
+  verdict();
+
+  /* ---------- Compounding chart ---------- */
+  var W=420,H=260,m={l:42,r:18,t:16,b:34},pw=W-m.l-m.r,ph=H-m.t-m.b,maxY=40;
+  var X=function(d){return m.l+d/365*pw};
+  var Y=function(v){return m.t+ph-(v-1)/(maxY-1)*ph};
+  var val=function(d){return Math.pow(1.01,d)};
+  var line='',i;
+  for(i=0;i<=365;i++){line+=(i?'L':'M')+X(i).toFixed(1)+' '+Y(val(i)).toFixed(1)}
+  var area=line+'L'+X(365).toFixed(1)+' '+Y(1).toFixed(1)+'L'+X(0).toFixed(1)+' '+Y(1).toFixed(1)+'Z';
+  var svg='';
+  [1,10,20,30].forEach(function(v){
+    svg+='<line class="gl" x1="'+m.l+'" x2="'+(W-m.r)+'" y1="'+Y(v).toFixed(1)+'" y2="'+Y(v).toFixed(1)+'"/>'+
+      '<text class="tk" x="'+(m.l-8)+'" y="'+(Y(v)+4).toFixed(1)+'" text-anchor="end">'+v+'×</text>';
+  });
+  [0,90,180,270,365].forEach(function(d){
+    svg+='<text class="tk" x="'+X(d).toFixed(1)+'" y="'+(H-10)+'" text-anchor="'+(d===0?'start':d===365?'end':'middle')+'">'+(d===0?'Day 0':d)+'</text>';
+  });
+  svg+='<path class="ar" d="'+area+'"/><path class="ln" d="'+line+'"/>'+
+    '<line class="ax" x1="'+m.l+'" x2="'+(W-m.r)+'" y1="'+Y(1)+'" y2="'+Y(1)+'"/>'+
+    '<line class="mv" id="mv" x1="0" x2="0" y1="'+m.t+'" y2="'+Y(1)+'"/>'+
+    '<circle class="mk" id="mk" r="6" cx="0" cy="0"/>'+
+    '<text class="ml" id="ml" x="0" y="0"></text>';
+  $('#chart').innerHTML=svg;
+  function mark(){
+    var d=parseInt($('#day').value,10);
+    var v=val(d),x=X(d),y=Y(v);
+    $('#mv').setAttribute('x1',x);$('#mv').setAttribute('x2',x);
+    $('#mk').setAttribute('cx',x);$('#mk').setAttribute('cy',y);
+    var ml=$('#ml');
+    ml.textContent=v.toFixed(2)+'×';
+    ml.setAttribute('text-anchor',x>W/2?'end':'start');
+    ml.setAttribute('x',x+(x>W/2?-12:12));
+    ml.setAttribute('y',Math.max(m.t+14,y-12));
+    $('#readout').textContent='Day '+d+': '+v.toFixed(2)+'×';
+  }
+  $('#day').addEventListener('input',mark);
+  mark();
+
+  /* ---------- Scroll spy ---------- */
+  var links=$$('.nav a');
+  var secs=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1))});
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){
+          links.forEach(function(l){l.removeAttribute('aria-current')});
+          links[secs.indexOf(e.target)].setAttribute('aria-current','true');
+        }
+      });
+    },{rootMargin:'-30% 0px -65% 0px'});
+    secs.forEach(function(s){io.observe(s)});
+  }
+})();
+</script>
+
+</body></html>
